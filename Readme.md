@@ -9,9 +9,13 @@ pip install .
 ```
 
 **Usage**
+
 '-s' - 'Phrase for search'
+
 '-c' - 'Path to chromedriver'
+
 '-d' - 'Save images with faces only'
+
 '-o' - 'Location of output results'
 
 **Example**
