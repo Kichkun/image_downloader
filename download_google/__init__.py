@@ -15,10 +15,11 @@ from urllib3.exceptions import InsecureRequestWarning
 urllib3.disable_warnings(InsecureRequestWarning)
 
 
-def download_google_staticimages(searchurl, dirs, chromedriver_path, detect_face):
+def download_google_staticimages(searchurl, dirs, chromedriver_path, detect_face, headless):
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox')
-    # options.add_argument('--headless')
+    if headless:
+        options.add_argument('--headless')
 
     try:
         browser = webdriver.Chrome(chromedriver_path, options=options)
@@ -138,7 +139,7 @@ def soft_detect_face(frame):
 
 
 # Main block
-def main(search_phrase, chromedriver_path, detect_face, output_folder):
+def main(search_phrase, chromedriver_path, detect_face, output_folder, headless):
     search_words = search_phrase.split(' ')
     searchurl = 'https://www.google.com/search?q='
     for word in search_words:
@@ -148,7 +149,7 @@ def main(search_phrase, chromedriver_path, detect_face, output_folder):
     if not os.path.exists(dirs):
         os.mkdir(dirs)
     t0 = time.time()
-    count = download_google_staticimages(searchurl, dirs, chromedriver_path, detect_face)
+    count = download_google_staticimages(searchurl, dirs, chromedriver_path, detect_face, headless)
     t1 = time.time()
 
     total_time = t1 - t0
@@ -164,7 +165,9 @@ if __name__ == '__main__':
     parser.add_argument('-c', dest='chromedriver', default='/usr/local/bin/chromedriver', help='path to chromedriver')
     parser.add_argument('-d', dest='detect_face', default=False, help='save images with faces only')
     parser.add_argument('-o', dest='output_folder', default='.', help='location for output results')
+    parser.add_argument('-b', dest='headless', default=False,
+                        help='launch google chrome to be able to see and control or do in background')
 
     args = parser.parse_args()
 
-    main(args.search_phrase, args.chromedriver, args.detect_face, args.output_folder)
+    main(args.search_phrase, args.chromedriver, args.detect_face, args.output_folder, args.headless)
