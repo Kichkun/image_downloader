@@ -25,7 +25,7 @@ You will also need to install Google Chrome and [chromedriver](https://4admin.sp
 - -c - Path to chromedriver
 - -d - Save images with faces only
 - -o - Location of output results
-- -v - Launch Google Chrome to be able to see and control the results or to do everything in background
+- -b - Launch Google Chrome to be able to see and control the results or to do everything in background
 
 **Example**
 ```bash
