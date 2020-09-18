@@ -135,7 +135,7 @@ def soft_detect_face(frame):
     cascade_face_detector = cv2.CascadeClassifier(haar_model)
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = cascade_face_detector.detectMultiScale(gray_frame, 1.1, 3)
-    return list(filter(lambda x: x[2] > 150, faces))
+    return list(filter(lambda x: x[2] > 50, faces))
 
 
 # Main block
